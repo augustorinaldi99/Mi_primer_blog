@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi primer blog</title>
+</head>
+<body>
+    <h1>Mi primer blog</h1>
+    <h2>Publicaciones</h2>
+    
+    <form method="get">
+    <label for="q">Buscar por título:</label>
+    <input
+        type="text"
+        id="q"
+        name="q"
+        value="{{ busqueda }}"
+        placeholder="Ej.: MCU"
+    >
+    <button type="submit">Buscar</button>
+    </form>
+
+    <form method="get">
+    <label for="tag">Filtrar por etiqueta:</label>
+    <input
+        type="text"
+        id="tag"
+        name="tag"
+        value="{{ tag_buscado }}"
+        placeholder="Ej.: #Marvel"
+    >
+    <button type="submit">Filtrar</button>
+    </form>
+
+<a href="{% url 'web:inicio' %}">Limpiar filtros</a>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'web:detalle_post' post.id %}">
+                    {{ post.titulo }}
+                </a>
+                — {{ post.autor.nombre }}
+            </li>
+        {% empty %}
+            <li>No hay publicaciones con ese nombre.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

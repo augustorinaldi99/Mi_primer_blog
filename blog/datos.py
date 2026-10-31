@@ -26,7 +26,7 @@ posts = [
         "titulo": "Explicación del Multiverso",
         "contenido": "Una explicación de distintas realidades y líneas temporales.",
         "autor": perfil_autor,
-        "tags": ["#Multiverso", "#Timeline"],
+        "tags": ["#Multiverso", "#Timeline", "#Spiderverse"],
         "estado": "borrador"
     },
     {
@@ -34,14 +34,14 @@ posts = [
         "titulo": "Top 10 personajes más poderosos",
         "contenido": "Un listado de personajes poderosos del universo Marvel.",
         "autor": perfil_autor,
-        "tags": ["#X-men", "#Avengers", "#Thedefenders"],
+        "tags": ["#Spiderman", "#Thor", "#DoctorDoom", "#Wanda", "#Thanos", "#CapitanaMarvel"],
         "estado": "archivado"
     },
     {
         "id": 4,
         "titulo": "Post incompleto para probar la validación",
         "autor": perfil_autor,
-        "tags": ["#Marvel"],
+        "tags": ["#Testeo"],
         "estado": "borrador"
     }
 ]
