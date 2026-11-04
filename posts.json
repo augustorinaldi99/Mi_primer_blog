@@ -1,0 +1,84 @@
+[
+    {
+        "id": 1,
+        "titulo": "Qué es el MCU",
+        "contenido": "Explicación del Universo Cinematográfico de Marvel.",
+        "autor": {
+            "nombre": "Augusto Rinaldi",
+            "bio": "Crítico de películas",
+            "especialidad": "Universo de superhéroes",
+            "redes_sociales": [
+                "@augustorinaldi",
+                "@augustorinaldi_movies",
+                "@augustorinaldi_moives.ok"
+            ]
+        },
+        "tags": [
+            "#Marvel",
+            "#Avengers",
+            "#MCU"
+        ],
+        "estado": "publicado"
+    },
+    {
+        "id": 2,
+        "titulo": "Explicación del Multiverso",
+        "contenido": "Una explicación de distintas realidades y líneas temporales.",
+        "autor": {
+            "nombre": "Augusto Rinaldi",
+            "bio": "Crítico de películas",
+            "especialidad": "Universo de superhéroes",
+            "redes_sociales": [
+                "@augustorinaldi",
+                "@augustorinaldi_movies",
+                "@augustorinaldi_moives.ok"
+            ]
+        },
+        "tags": [
+            "#Multiverso",
+            "#Timeline",
+            "#Spiderverse"
+        ],
+        "estado": "borrador"
+    },
+    {
+        "id": 3,
+        "titulo": "Top 10 personajes más poderosos",
+        "contenido": "Un listado de personajes poderosos del universo Marvel.",
+        "autor": {
+            "nombre": "Augusto Rinaldi",
+            "bio": "Crítico de películas",
+            "especialidad": "Universo de superhéroes",
+            "redes_sociales": [
+                "@augustorinaldi",
+                "@augustorinaldi_movies",
+                "@augustorinaldi_moives.ok"
+            ]
+        },
+        "tags": [
+            "#Thor",
+            "#DoctorDoom",
+            "#Wanda"
+        ],
+        "estado": "archivado"
+    },
+    {
+        "id": 4,
+        "titulo": "Post incompleto para probar la validación",
+        "contenido": "",
+        "autor": {
+            "nombre": "Augusto Rinaldi",
+            "bio": "Crítico de películas",
+            "especialidad": "Universo de superhéroes",
+            "redes_sociales": [
+                "@augustorinaldi",
+                "@augustorinaldi_movies",
+                "@augustorinaldi_moives.ok"
+            ]
+        },
+        "tags": [
+            "#Testeo"
+        ],
+        "estado": "borrador"
+    }
+]

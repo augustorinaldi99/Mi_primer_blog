@@ -1,39 +1,37 @@
-from blog.datos import estados_post 
+from blog.modelos import Autor,Post 
 
 # Funcion para validar los posts del blog
 def validar_post(post):
     
-    if not isinstance(post, dict):
-        return False, "el post no es un diccionario"
+    if not isinstance(post, Post):
+        return False, "Los datos del post no son válidos."
 
-    claves_obligatorias = ("id", "titulo", "contenido", "autor", "tags", "estado")
-    for clave in claves_obligatorias:
-        if clave not in post:
-            return False, f'Falta la clave "{clave}".'
+    if not isinstance(post.id, int) or post.id < 1:
+        return False, "El ID debe ser un número entero positivo."
 
-    titulo = post.get("titulo")
-    if not isinstance(titulo, str) or not titulo.strip():
-        return False, "El título no puede estar vacio."
+    if not isinstance(post.titulo, str) or not post.titulo.strip():
+        return False, "El título no puede estar vacío."
 
-    contenido = post.get("contenido")
-    if not isinstance(contenido, str) or not contenido.strip():
+    if not isinstance(post.contenido, str) or not post.contenido.strip():
         return False, "El contenido no puede estar vacío."
 
-    autor = post.get("autor")
-    if not isinstance(autor, dict):
-        return False, "El autor no es un diccionario."
-    nombre_autor = autor.get("nombre")
-    if not isinstance(nombre_autor, str) or not nombre_autor.strip():
-        return False, 'Falta un nombre de autor válido en la clave "nombre".'
+    if not isinstance(post.autor, Autor):
+        return False, "Los datos del autor no son válidos."
 
-    tags_post = post.get("tags")
-    if not isinstance(tags_post, list):
-        return False, 'La clave "tags" no contiene una lista'
-    for tag in tags_post:
+    if not isinstance(post.autor.nombre, str) or not post.autor.nombre.strip():
+        return False, "El nombre del autor no puede estar vacío."
+
+    if not isinstance(post.tags, list):
+        return False, "Los tags deben estar en formato lista."
+
+    for tag in post.tags:
         if not isinstance(tag, str) or not tag.strip():
             return False, "La lista de tags contiene un valor inválido."
 
-    if post.get("estado") not in estados_post:
-        return False, "El estado ingresado no es valido."
+        if not tag.strip().startswith("#") or len(tag.strip()) == 1:
+            return False, "Cada tag debe comenzar con # y tener un nombre."
+
+    if post.estado not in Post.estados_post:
+        return False, "El estado del post no es válido."
 
     return True, "Válido."
