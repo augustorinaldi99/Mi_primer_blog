@@ -1,6 +1,66 @@
-# Mi primer blog: versión por consola
+# Mi primer blog
 
-Este proyecto permite administrar publicaciones desde un menú en la terminal. En esta preentrega, el blog usa clases para representar autores y posts, y guarda las publicaciones en `posts.json` para recuperarlas en la siguiente ejecución.
+Este repositorio reúne el blog por consola de la preentrega 6 y la base de Django de la preentrega 7.
+
+## Preentrega 7: base de Django
+
+El proyecto Django se llama `blog_project` y la aplicación principal es `posts`. La app está registrada en `INSTALLED_APPS`. El idioma es español de Argentina y la zona horaria es Buenos Aires. En esta etapa se prepara la estructura inicial; todavía no hay páginas ni publicaciones web propias.
+
+### Archivos principales
+
+```text
+.
+├── manage.py
+├── blog_project/     # configuración general de Django
+├── posts/            # aplicación inicial del blog web
+├── requirements.txt
+├── main.py           # versión por consola
+├── posts.json        # datos de la versión por consola
+└── blog/             # clases y funciones de la versión por consola
+```
+
+### Cómo ejecutar la base web
+
+Cloná el repositorio y entrá en su carpeta:
+
+```shell
+git clone https://github.com/augustorinaldi99/Mi_primer_blog.git
+cd Mi_primer_blog
+```
+
+Creá el entorno virtual:
+
+```shell
+python -m venv .venv
+```
+
+Activá el entorno según tu terminal:
+
+```powershell
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+```
+
+```bash
+# Git Bash en Windows
+source .venv/Scripts/activate
+
+# Linux o macOS
+source .venv/bin/activate
+```
+
+Instalá las dependencias y levantá el servidor de desarrollo:
+
+```shell
+python -m pip install -r requirements.txt
+python manage.py runserver
+```
+
+Abrí `http://127.0.0.1:8000/` en el navegador. Para detener el servidor, presioná `Ctrl+C` en la terminal.
+
+## Preentrega 6: blog por consola
+
+Este proyecto permite administrar publicaciones desde un menú en la terminal. En la preentrega 6, el blog usa clases para representar autores y posts, y guarda las publicaciones en `posts.json` para recuperarlas en la siguiente ejecución.
 
 ## Cómo ejecutarlo
 
