@@ -1,10 +1,18 @@
 # Mi primer blog
 
-Este repositorio reúne el blog por consola de la preentrega 6 y la base de Django de la preentrega 7.
+Este repositorio reúne el blog por consola de la preentrega 6, la base de Django de la preentrega 7 y las primeras páginas web de la preentrega 8.
+
+## Preentrega 8: primeras páginas web
+
+La aplicación `posts` ofrece dos páginas: **Inicio** (`/`) y **Acerca de** (`/acerca/`). El menú permite navegar entre ellas. Ambas usan `posts/templates/posts/base.html` como estructura común y cargan el estilo desde `posts/static/posts/css/estilos.css`.
+
+Las rutas generales están en `blog_project/urls.py`; las rutas de las dos páginas están en `posts/urls.py`. Cada ruta llama a una función de `posts/views.py`, que renderiza su template HTML. Por ahora estas páginas presentan texto de bienvenida y una descripción del autor; los posts de la versión por consola siguen en `posts.json`.
+
+Para ver el sitio localmente, seguí los pasos de instalación y ejecución de Django que aparecen abajo y abrí `http://127.0.0.1:8000/`. También podés entrar directamente a `http://127.0.0.1:8000/acerca/`.
 
 ## Preentrega 7: base de Django
 
-El proyecto Django se llama `blog_project` y la aplicación principal es `posts`. La app está registrada en `INSTALLED_APPS`. El idioma es español de Argentina y la zona horaria es Buenos Aires. En esta etapa se prepara la estructura inicial; todavía no hay páginas ni publicaciones web propias.
+El proyecto Django se llama `blog_project` y la aplicación principal es `posts`. La app está registrada en `INSTALLED_APPS`. El idioma es español de Argentina y la zona horaria es Buenos Aires. En esa preentrega se preparó la estructura inicial; las páginas se agregaron en la preentrega 8.
 
 ### Archivos principales
 
@@ -19,7 +27,7 @@ El proyecto Django se llama `blog_project` y la aplicación principal es `posts`
 └── blog/             # clases y funciones de la versión por consola
 ```
 
-### Cómo ejecutar la base web
+### Cómo ejecutar Django
 
 Cloná el repositorio y entrá en su carpeta:
 
