@@ -4,6 +4,7 @@
     <h2>Bienvenidos a mi Blog</h2>
     <p>Este es mi espacio para compartir mis posts con ustedes.</p>
 
+    <!-- El inicio muestra un adelanto de cada publicación disponible al público. -->
     <h2>Publicaciones</h2>
     {% for post in posts %}
         <article>
@@ -12,6 +13,7 @@
                     {{ post.titulo }}
                 </a>
             </h3>
+            <!-- El filtro acorta solo la vista previa; el texto guardado no cambia. -->
             <p>{{ post.contenido|truncatewords:50 }}</p>
             <a href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa</a>
             <p>Autor: {{ post.autor }}</p>

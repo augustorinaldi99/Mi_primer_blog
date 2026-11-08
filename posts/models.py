@@ -1,8 +1,9 @@
 from django.db import models
 
 
-# Representa una publicación guardada en la base de datos.
+# Define la publicación que Django guarda en la base de datos.
 class Post(models.Model):
+    # Limita los estados disponibles en el formulario de administración.
     ESTADOS = [
         ("borrador", "Borrador"),
         ("publicado", "Publicado"),
@@ -19,10 +20,11 @@ class Post(models.Model):
         default="borrador",
     )
 
-    # Muestra el título de la publicación en el panel administrativo.
+    # Usa el título cuando Django muestra este objeto como texto.
     def __str__(self):
         return self.titulo
 
+    # Define los nombres visibles del modelo en el panel de administración.
     class Meta:
         verbose_name = "publicación"
         verbose_name_plural = "publicaciones"

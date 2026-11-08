@@ -4,6 +4,7 @@ from blog.modelos import Autor, Blog
 from blog.validaciones import validar_post
 
 
+# Presenta los posts recibidos y permite personalizar el mensaje cuando la lista está vacía.
 def mostrar_posts(lista_posts, mensaje_vacio = "No hay posts para mostrar."):
     if not lista_posts:
         print(mensaje_vacio)
@@ -12,7 +13,7 @@ def mostrar_posts(lista_posts, mensaje_vacio = "No hay posts para mostrar."):
     for post in lista_posts:
         print (f"{post.id}. {post.titulo} | " f"Autor: {post.autor.nombre} | Tags: {post.tags} Estado: {post.estado}")
 
-# Funcion para ejecutar el menu del blog y todas sus funciones.
+# Carga los posts y coordina las opciones del menú de la versión por consola.
 def ejecutar_blog():
     posts_cargados, carga_completa = cargar_posts()
     blog = Blog(posts_cargados)
@@ -25,6 +26,7 @@ def ejecutar_blog():
         if opcion == 1:
             mostrar_posts(blog.listar_posts())
         
+        # Las búsquedas se pueden repetir hasta que el usuario escriba 0.
         elif opcion == 2:
             while True:
                 termino = input("Buscar por título (0 para volver): ").strip()
@@ -55,6 +57,7 @@ def ejecutar_blog():
                     "No hay posts con ese tag."
                 )
                 
+        # Solicita datos válidos antes de construir el post con el perfil registrado.
         elif opcion == 4:
 
             while True:
@@ -107,6 +110,7 @@ def ejecutar_blog():
                 else:
                     print(f"Post {post.id}: error - {mensaje}")
 
+        # Evita sobrescribir el JSON si su contenido anterior no se pudo cargar completo.
         elif opcion == 6:
             if not carga_completa:
                 print("No se guardó: posts.json tuvo errores al cargar. Corregí el archivo y reiniciá el programa.")
@@ -126,5 +130,6 @@ def ejecutar_blog():
             print("Opción inválida, intentá de nuevo.")
 
 
+# Inicia el menú solo cuando este archivo se ejecuta directamente.
 if __name__ == "__main__":
     ejecutar_blog()

@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from blog.modelos import Post
 
+# Perfil registrado que puede seleccionarse al crear posts desde la consola.
 perfil_autor = {
     "nombre": "Augusto Rinaldi",
     "bio": "Crítico de películas",
@@ -13,6 +14,7 @@ perfil_autor = {
     ]
 }
 
+# Datos de ejemplo de la etapa inicial; la carga actual se hace desde posts.json.
 posts = [
     {
         "id": 1,
@@ -47,14 +49,17 @@ posts = [
     }
 ]
 
+# Ubica el JSON en la raíz del proyecto, independientemente de la terminal usada.
 RUTA_POST = Path(__file__).resolve().parent.parent / "posts.json"
 
+# Convierte los objetos Post en diccionarios y los escribe en posts.json.
 def guardar_posts(lista_posts):
     datos = [post.a_diccionario() for post in lista_posts]
 
     with RUTA_POST.open("w", encoding = "utf-8") as archivo:
         json.dump(datos, archivo, ensure_ascii = False, indent = 4)
 
+# Recupera los posts del JSON e informa si la carga fue completa.
 def cargar_posts():
     if not RUTA_POST.exists():
         print("posts.json no existe; el blog comenzará vacío.")
@@ -71,6 +76,7 @@ def cargar_posts():
         print("El archivo 'posts.json' debe contener una lista de posts.")
         return[], False
 
+    # Recupera los registros válidos sin ocultar errores de otros registros.
     posts_cargados = []
     hubo_error = False
 

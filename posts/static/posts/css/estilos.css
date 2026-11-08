@@ -1,3 +1,4 @@
+/* Apariencia general y fondo compartidos por todas las páginas. */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -5,6 +6,7 @@ body {
     background-color: #f3f6fa;
 }
 
+/* Encabezado del sitio y enlaces del menú. */
 header {
     padding: 24px;
     color: white;
@@ -30,6 +32,7 @@ nav a:hover {
     background-color: white;
 }
 
+/* Área donde cada plantilla presenta su contenido. */
 main {
     max-width: 760px;
     margin: 40px auto;

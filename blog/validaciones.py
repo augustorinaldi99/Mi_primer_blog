@@ -1,6 +1,6 @@
 from blog.modelos import Autor,Post 
 
-# Funcion para validar los posts del blog
+# Comprueba los datos obligatorios y devuelve un resultado con su explicación.
 def validar_post(post):
     
     if not isinstance(post, Post):
@@ -15,12 +15,14 @@ def validar_post(post):
     if not isinstance(post.contenido, str) or not post.contenido.strip():
         return False, "El contenido no puede estar vacío."
 
+    # El autor debe ser un objeto Autor con un nombre no vacío.
     if not isinstance(post.autor, Autor):
         return False, "Los datos del autor no son válidos."
 
     if not isinstance(post.autor.nombre, str) or not post.autor.nombre.strip():
         return False, "El nombre del autor no puede estar vacío."
 
+    # Los tags son opcionales, pero cada tag presente debe comenzar con #.
     if not isinstance(post.tags, list):
         return False, "Los tags deben estar en formato lista."
 
