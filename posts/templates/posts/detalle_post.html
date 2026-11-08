@@ -1,0 +1,11 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <article>
+        <h2>{{ post.titulo }}</h2>
+        <p>Autor: {{ post.autor }}</p>
+        <p>{{ post.contenido|linebreaksbr }}</p>
+    </article>
+
+    <a href="{% url 'posts:inicio' %}">Volver a publicaciones</a>
+{% endblock %}

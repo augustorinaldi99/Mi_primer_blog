@@ -1,12 +1,28 @@
 # Mi primer blog
 
-Este repositorio reúne el blog por consola de la preentrega 6, la base de Django de la preentrega 7 y las primeras páginas web de la preentrega 8.
+Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django de las preentregas 7, 8 y 9.
+
+## Preentrega 9: publicaciones en Django
+
+La aplicación `posts` tiene un modelo `Post` con título, contenido, autor, fecha de creación y estado (`borrador`, `publicado` o `archivado`). Las migraciones crean su tabla en SQLite. El modelo está registrado en el administrador de Django, donde se pueden crear publicaciones y ver sus datos en una lista.
+
+Para preparar la base de datos y crear un usuario administrador, después de instalar las dependencias ejecutá:
+
+```shell
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+Entrá a `http://127.0.0.1:8000/admin/` con ese usuario y creá al menos tres publicaciones, incluida una con estado `publicado`. La página de inicio (`/`) consulta la base de datos y muestra solamente las publicadas, ordenadas de la más reciente a la más antigua. Cada título abre el contenido completo en `/posts/<id>/`; el inicio muestra un adelanto de 50 palabras. Los borradores y los posts archivados no aparecen en la página pública.
+
+`db.sqlite3` y las credenciales del administrador son locales y no se suben al repositorio. Por eso, al clonar el proyecto, hay que aplicar las migraciones y cargar publicaciones desde `/admin/` para verlas en el sitio. La versión por consola conserva sus datos por separado en `posts.json`.
 
 ## Preentrega 8: primeras páginas web
 
 La aplicación `posts` ofrece dos páginas: **Inicio** (`/`) y **Acerca de** (`/acerca/`). El menú permite navegar entre ellas. Ambas usan `posts/templates/posts/base.html` como estructura común y cargan el estilo desde `posts/static/posts/css/estilos.css`.
 
-Las rutas generales están en `blog_project/urls.py`; las rutas de las dos páginas están en `posts/urls.py`. Cada ruta llama a una función de `posts/views.py`, que renderiza su template HTML. Por ahora estas páginas presentan texto de bienvenida y una descripción del autor; los posts de la versión por consola siguen en `posts.json`.
+Las rutas generales están en `blog_project/urls.py`; las rutas de las páginas están en `posts/urls.py`. Cada ruta llama a una función de `posts/views.py`, que renderiza su template HTML. En la preentrega 8, Inicio presentaba texto de bienvenida; la lista dinámica de publicaciones se agregó en la preentrega 9. Los posts de la versión por consola siguen en `posts.json`.
 
 Para ver el sitio localmente, seguí los pasos de instalación y ejecución de Django que aparecen abajo y abrí `http://127.0.0.1:8000/`. También podés entrar directamente a `http://127.0.0.1:8000/acerca/`.
 

@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Bienvenidos a mi Blog</h2>
+    <p>Este es mi espacio para compartir mis posts con ustedes.</p>
+
+    <h2>Publicaciones</h2>
+    {% for post in posts %}
+        <article>
+            <h3>
+                <a href="{% url 'posts:detalle_post' post.id %}">
+                    {{ post.titulo }}
+                </a>
+            </h3>
+            <p>{{ post.contenido|truncatewords:50 }}</p>
+            <a href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa</a>
+            <p>Autor: {{ post.autor }}</p>
+        </article>
+    {% empty %}
+        <p>Todavía no hay publicaciones.</p>
+    {% endfor %}
+{% endblock %}
