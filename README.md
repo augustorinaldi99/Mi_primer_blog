@@ -2,6 +2,12 @@
 
 Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django de las preentregas 7, 8 y 9.
 
+## Versiones necesarias
+
+Este proyecto usa Django 6.1.2, compatible con Python 3.12, 3.13 y 3.14. Se probó localmente con Python 3.14.7. Las versiones de los paquetes externos se fijan en `requirements.txt`. Antes de crear el entorno virtual, comprobá tu Python con `python --version`.
+
+Para ejecutar el proyecto en otro equipo, creá un entorno virtual, instalá `requirements.txt` y aplicá las migraciones. La base de datos local no se incluye en Git; luego podés crear un superusuario y cargar posts desde `/admin/`, como se explica abajo.
+
 ## Preentrega 9: publicaciones en Django
 
 La aplicación `posts` tiene un modelo `Post` con título, contenido, autor, fecha de creación y estado (`borrador`, `publicado` o `archivado`). Las migraciones crean su tabla en SQLite. El modelo está registrado en el administrador de Django, donde se pueden crear publicaciones y ver sus datos en una lista.
@@ -77,10 +83,22 @@ Instalá las dependencias y levantá el servidor de desarrollo:
 
 ```shell
 python -m pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
 Abrí `http://127.0.0.1:8000/` en el navegador. Para detener el servidor, presioná `Ctrl+C` en la terminal.
+
+En desarrollo, Django usa una clave local de ejemplo. Para reemplazarla, definí la variable de entorno `DJANGO_SECRET_KEY` antes de iniciar el servidor. Nunca uses la clave de ejemplo en un despliegue público.
+
+### Pruebas
+
+Las pruebas del blog por consola usan archivos temporales para comprobar la búsqueda, el filtrado y el guardado/carga de JSON. Las pruebas web usan una base de datos de prueba de Django; no modifican los posts de tu base local.
+
+```shell
+python -m unittest discover -s tests
+python manage.py test posts
+```
 
 ## Preentrega 6: blog por consola
 
