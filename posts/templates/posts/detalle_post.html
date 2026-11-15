@@ -5,7 +5,12 @@
     <article>
         <h2>{{ post.titulo }}</h2>
         <p>Autor: {{ post.autor }}</p>
-        <p>{{ post.contenido|linebreaksbr }}</p>
+        <p>Estado: {{ post.get_estado_display }}</p>
+        <p class="contenido-post">{{ post.contenido|linebreaksbr }}</p>
+        <!-- La imagen es opcional: solo se consulta su URL si existe. -->
+        {% if post.imagen %}
+            <img class="imagen-post" src="{{ post.imagen.url }}" alt="Imagen de {{ post.titulo }}">
+        {% endif %}
     </article>
 
     <a href="{% url 'posts:inicio' %}">Volver a publicaciones</a>

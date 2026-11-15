@@ -5,19 +5,23 @@ from blog.validaciones import validar_post
 
 
 # Presenta los posts recibidos y permite personalizar el mensaje cuando la lista está vacía.
-def mostrar_posts(lista_posts, mensaje_vacio = "No hay posts para mostrar."):
+def mostrar_posts(lista_posts, mensaje_vacio="No hay posts para mostrar."):
     if not lista_posts:
         print(mensaje_vacio)
         return
 
     for post in lista_posts:
-        print (f"{post.id}. {post.titulo} | " f"Autor: {post.autor.nombre} | Tags: {post.tags} Estado: {post.estado}")
+        print(
+            f"{post.id}. {post.titulo} | Autor: {post.autor.nombre} | "
+            f"Tags: {post.tags} | Estado: {post.estado}"
+        )
+
 
 # Carga los posts y coordina las opciones del menú de la versión por consola.
 def ejecutar_blog():
     posts_cargados, carga_completa = cargar_posts()
     blog = Blog(posts_cargados)
-    
+
     while True:
         opcion = mostrar_menu()
 
@@ -25,7 +29,7 @@ def ejecutar_blog():
             continue
         if opcion == 1:
             mostrar_posts(blog.listar_posts())
-        
+
         # Las búsquedas se pueden repetir hasta que el usuario escriba 0.
         elif opcion == 2:
             while True:
@@ -38,10 +42,10 @@ def ejecutar_blog():
                     continue
 
                 mostrar_posts(
-                blog.buscar_por_titulo(termino),
-                "No hay posts con ese título."
+                    blog.buscar_por_titulo(termino),
+                    "No hay posts con ese título.",
                 )
-                
+
         elif opcion == 3:
             while True:
                 tag = input("Filtrar por tag (0 para volver): ").strip()
@@ -54,32 +58,31 @@ def ejecutar_blog():
 
                 mostrar_posts(
                     blog.filtrar_por_tag(tag),
-                    "No hay posts con ese tag."
+                    "No hay posts con ese tag.",
                 )
-                
+
         # Solicita datos válidos antes de construir el post con el perfil registrado.
         elif opcion == 4:
-
             while True:
                 titulo = input("Título: ").strip()
                 if titulo:
                     break
-                print("El Título es obligatorio.")
-                
+                print("El título es obligatorio.")
+
             while True:
                 contenido = input("Contenido: ").strip()
                 if contenido:
                     break
-                print("El Contenido es obligatorio.")
-                
+                print("El contenido es obligatorio.")
+
             while True:
-                nombre_autor = input("Nombre del autor: ").strip() 
-                
+                nombre_autor = input("Nombre del autor: ").strip()
+
                 if nombre_autor.casefold() == perfil_autor["nombre"].casefold():
                     break
 
                 print("Perfil no registrado, por favor ingrese un nombre registrado.")
-        
+
             while True:
                 texto_tags = input("Tags separados por comas, cada uno con # (opcional): ")
                 tags = [tag.strip() for tag in texto_tags.split(",") if tag.strip()]
@@ -91,10 +94,10 @@ def ejecutar_blog():
 
             autor = Autor.desde_diccionario(perfil_autor)
             nuevo_post = blog.crear_post(
-                autor = autor,
-                titulo = titulo,
-                contenido = contenido,
-                tags = tags
+                autor=autor,
+                titulo=titulo,
+                contenido=contenido,
+                tags=tags,
             )
             print(f"Post {nuevo_post.id} creado como borrador.")
 
@@ -113,7 +116,10 @@ def ejecutar_blog():
         # Evita sobrescribir el JSON si su contenido anterior no se pudo cargar completo.
         elif opcion == 6:
             if not carga_completa:
-                print("No se guardó: posts.json tuvo errores al cargar. Corregí el archivo y reiniciá el programa.")
+                print(
+                    "No se guardó: posts.json tuvo errores al cargar. "
+                    "Corregí el archivo y reiniciá el programa."
+                )
                 continue
             try:
                 guardar_posts(blog.listar_posts())

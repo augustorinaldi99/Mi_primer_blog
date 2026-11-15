@@ -1,5 +1,5 @@
 # Representa el perfil de un autor en la versión por consola.
-class Autor: 
+class Autor:
     # Guarda los datos del perfil; las redes sociales son opcionales.
     def __init__(self, nombre, bio, especialidad="", redes_sociales=None):
         self.nombre = nombre
@@ -12,32 +12,33 @@ class Autor:
         return {
             "nombre": self.nombre,
             "bio": self.bio,
-            "especialidad" : self.especialidad,
-            "redes_sociales": self.redes_sociales
+            "especialidad": self.especialidad,
+            "redes_sociales": self.redes_sociales,
         }
 
     # Reconstruye un autor a partir de un diccionario leído del JSON.
     @classmethod
     def desde_diccionario(cls, datos):
         return cls(
-        nombre=datos["nombre"],
-        bio=datos.get("bio", ""),
-        especialidad=datos.get("especialidad", ""),
-        redes_sociales=datos.get("redes_sociales", [])
-    )
+            nombre=datos["nombre"],
+            bio=datos.get("bio", ""),
+            especialidad=datos.get("especialidad", ""),
+            redes_sociales=datos.get("redes_sociales", []),
+        )
 
 
 # Representa una publicación y conserva una instancia de Autor.
 class Post:
-
     estados_post = ("borrador", "archivado", "publicado")
     estado_post_default = "borrador"
-    
+
     # Inicializa una publicación; los tags y el contenido pueden empezar vacíos.
-    def __init__(self, id, autor, titulo="", contenido = "", tags=None, estado=estado_post_default):
+    def __init__(
+        self, id, autor, titulo="", contenido="", tags=None, estado=estado_post_default
+    ):
         self.id = int(id)
         self.titulo = titulo
-        self.contenido = contenido 
+        self.contenido = contenido
         self.autor = autor
         self.tags = tags if tags is not None else []
         self.estado = estado
@@ -50,7 +51,7 @@ class Post:
             "contenido": self.contenido,
             "autor": self.autor.a_diccionario(),
             "tags": self.tags,
-            "estado": self.estado
+            "estado": self.estado,
         }
 
     # Reconstruye el post y su autor desde los datos almacenados.
@@ -64,12 +65,12 @@ class Post:
             titulo=datos.get("titulo", ""),
             contenido=datos.get("contenido", ""),
             tags=datos.get("tags", []),
-            estado=datos.get("estado", cls.estado_post_default)
+            estado=datos.get("estado", cls.estado_post_default),
         )
-        
+
+
 # Reúne los posts y las operaciones de búsqueda y creación del blog de consola.
 class Blog:
-
     # Inicia el blog con los posts cargados o con una lista nueva.
     def __init__(self, posts=None):
         self.posts = posts if posts is not None else []
@@ -83,7 +84,7 @@ class Blog:
         termino = termino.strip().lower()
 
         if not termino:
-            return[]
+            return []
 
         resultados = []
 
@@ -94,8 +95,8 @@ class Blog:
         return resultados
 
     # Compara tags ignorando espacios, mayúsculas y el símbolo # inicial.
-    def filtrar_por_tag (self, tag_buscado):
-        tag_buscado = tag_buscado.strip().lower().replace(" ","").lstrip("#")
+    def filtrar_por_tag(self, tag_buscado):
+        tag_buscado = tag_buscado.strip().lower().replace(" ", "").lstrip("#")
 
         if not tag_buscado:
             return []
@@ -104,7 +105,7 @@ class Blog:
 
         for post in self.posts:
             for tag in post.tags:
-                tag_normalizado = tag.strip().lower().replace(" ","").lstrip("#")
+                tag_normalizado = tag.strip().lower().replace(" ", "").lstrip("#")
 
                 if tag_buscado in tag_normalizado:
                     resultados.append(post)
@@ -113,22 +114,23 @@ class Blog:
         return resultados
 
     # Asigna el próximo ID disponible y agrega una publicación al blog.
-    def crear_post(self, autor, titulo, contenido="", tags=None, estado=Post.estado_post_default):
+    def crear_post(
+        self, autor, titulo, contenido="", tags=None, estado=Post.estado_post_default
+    ):
         nuevo_id = 1
 
         for post in self.posts:
             if post.id >= nuevo_id:
                 nuevo_id = post.id + 1
 
-        nuevo_post = Post (
-            id = nuevo_id, 
-            autor = autor,
-            titulo = titulo,
-            contenido = contenido,
-            tags = tags, 
-            estado = estado
+        nuevo_post = Post(
+            id=nuevo_id,
+            autor=autor,
+            titulo=titulo,
+            contenido=contenido,
+            tags=tags,
+            estado=estado,
         )
 
         self.posts.append(nuevo_post)
         return nuevo_post
-

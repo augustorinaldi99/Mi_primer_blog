@@ -14,7 +14,7 @@
                 </a>
             </h3>
             <!-- El filtro acorta solo la vista previa; el texto guardado no cambia. -->
-            <p>{{ post.contenido|truncatewords:50 }}</p>
+            <p class="contenido-post">{{ post.contenido|truncatewords:50 }}</p>
             <a href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa</a>
             <p>Autor: {{ post.autor }}</p>
         </article>

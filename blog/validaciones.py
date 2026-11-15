@@ -1,8 +1,7 @@
-from blog.modelos import Autor,Post 
+from blog.modelos import Autor, Post
 
 # Comprueba los datos obligatorios y devuelve un resultado con su explicación.
 def validar_post(post):
-    
     if not isinstance(post, Post):
         return False, "Los datos del post no son válidos."
 

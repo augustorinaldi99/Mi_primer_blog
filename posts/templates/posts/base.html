@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="{% static 'posts/css/estilos.css' %}">
 </head>
 <body>
-<header>
+    <header>
         <h1>Mi Primer Blog</h1>
         <!-- Navegación compartida por todas las páginas que heredan esta base. -->
         <nav>
             <a href="{% url 'posts:inicio' %}">Inicio</a>
             <a href="{% url 'posts:acerca' %}">Acerca de</a>
-            <a href="{% url 'admin:index' %}" >Administracion</a>
+            <a href="{% url 'posts:gestion_posts' %}">Gestión</a>
+            <a href="{% url 'admin:index' %}">Administración</a>
         </nav>
     </header>
 

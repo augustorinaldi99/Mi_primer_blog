@@ -55,3 +55,17 @@ main article a:visited {
 main article a:hover {
     color: #23466b;
 }
+
+/* Centra la imagen y evita que exceda el ancho del contenido. */
+.imagen-post {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 24px auto;
+}
+
+/* Justifica el texto completo y los adelantos de las publicaciones. */
+.contenido-post {
+    text-align: justify;
+}

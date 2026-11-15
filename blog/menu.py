@@ -1,6 +1,5 @@
 # Muestra las opciones de consola y devuelve el número elegido, si es válido.
 def mostrar_menu():
-    
     print("1. Ver todos los posts")
     print("2. Buscar por titulo")
     print("3. Filtrar por tag")

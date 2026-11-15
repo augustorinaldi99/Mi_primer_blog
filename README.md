@@ -1,12 +1,22 @@
 # Mi primer blog
 
-Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django de las preentregas 7, 8 y 9.
+Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django hasta la preentrega 10.
 
 ## Versiones necesarias
 
 Este proyecto usa Django 6.1.2, compatible con Python 3.12, 3.13 y 3.14. Se probó localmente con Python 3.14.7. Las versiones de los paquetes externos se fijan en `requirements.txt`. Antes de crear el entorno virtual, comprobá tu Python con `python --version`.
 
-Para ejecutar el proyecto en otro equipo, creá un entorno virtual, instalá `requirements.txt` y aplicá las migraciones. La base de datos local no se incluye en Git; luego podés crear un superusuario y cargar posts desde `/admin/`, como se explica abajo.
+Para ejecutar el proyecto en otro equipo, creá un entorno virtual, instalá `requirements.txt` y aplicá las migraciones. La base de datos local no se incluye en Git; después podés cargar posts desde la página de Gestión o crear un superusuario para usar `/admin/`.
+
+## Preentrega 10: gestión de posts e imágenes
+
+La página pública (`/`) muestra solo los posts publicados. Desde **Gestión** (`/gestion/`) se ven todos los estados y se puede crear, editar o eliminar una publicación. La eliminación pide confirmación: abrir esa página no borra el post; el borrado ocurre al enviar el formulario. El administrador de Django sigue disponible en `/admin/`.
+
+`posts/forms.py` define `PostForm` a partir del modelo `Post`. El mismo formulario se usa para crear y editar título, contenido, autor, estado e imagen. Los formularios envían la imagen con `enctype="multipart/form-data"`; las vistas la reciben mediante `request.FILES`. Esta preentrega no incluye autenticación ni permisos para Gestión.
+
+Pillow, fijado en `requirements.txt`, permite validar los archivos del campo `ImageField`. Django guarda las imágenes subidas en `media/posts/` (`MEDIA_ROOT`) y registra su ruta relativa en la base de datos. `MEDIA_URL` y las rutas del proyecto permiten verlas con el servidor de desarrollo. La imagen se muestra en el detalle del post cuando existe; el listado público conserva solo el texto de adelanto. La carpeta `media/` y la base `db.sqlite3` son datos locales ignorados por Git: al clonar el proyecto, hay que crear las publicaciones y subir sus imágenes desde el formulario.
+
+Para probar el flujo: iniciá el servidor, entrá en `/gestion/`, creá un post publicado con una imagen y abrí su detalle desde Inicio. Después editá el post para cambiar la imagen, probá **Cancelar** en la confirmación de borrado y, con un post de prueba, confirmá la eliminación. En una instalación nueva, aplicá las migraciones antes de usar el formulario.
 
 ## Preentrega 9: publicaciones en Django
 
@@ -93,7 +103,7 @@ En desarrollo, Django usa una clave local de ejemplo. Para reemplazarla, definí
 
 ### Pruebas
 
-Las pruebas del blog por consola usan archivos temporales para comprobar la búsqueda, el filtrado y el guardado/carga de JSON. Las pruebas web usan una base de datos de prueba de Django; no modifican los posts de tu base local.
+Las pruebas del blog por consola usan archivos temporales para comprobar la búsqueda, el filtrado y el guardado/carga de JSON. Las pruebas web usan una base de datos y carpetas de imágenes temporales para comprobar las páginas públicas y las operaciones de Gestión; no modifican los posts de tu base local.
 
 ```shell
 python -m unittest discover -s tests

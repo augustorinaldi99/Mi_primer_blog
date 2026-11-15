@@ -19,6 +19,8 @@ class Post(models.Model):
         choices=ESTADOS,
         default="borrador",
     )
+    # La imagen es opcional y se guarda en media/posts/.
+    imagen = models.ImageField(upload_to="posts/", null=True, blank=True)
 
     # Usa el título cuando Django muestra este objeto como texto.
     def __str__(self):

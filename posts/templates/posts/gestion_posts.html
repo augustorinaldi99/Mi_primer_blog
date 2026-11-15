@@ -1,0 +1,19 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Gestión de publicaciones</h2>
+    <p><a href="{% url 'posts:crear_post' %}">Crear publicación</a></p>
+
+    <!-- Aquí aparecen también los borradores y los posts archivados. -->
+    <ul>
+        {% for post in posts %}
+            <li>
+                {{ post.titulo }} — {{ post.get_estado_display }}
+                — <a href="{% url 'posts:editar_post' post.id %}">Editar</a>
+                — <a href="{% url 'posts:eliminar_post' post.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <li>Todavía no hay publicaciones.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

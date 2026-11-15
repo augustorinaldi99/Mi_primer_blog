@@ -1,5 +1,6 @@
-import json 
+import json
 from pathlib import Path
+
 from blog.modelos import Post
 
 # Perfil registrado que puede seleccionarse al crear posts desde la consola.
@@ -56,8 +57,8 @@ RUTA_POST = Path(__file__).resolve().parent.parent / "posts.json"
 def guardar_posts(lista_posts):
     datos = [post.a_diccionario() for post in lista_posts]
 
-    with RUTA_POST.open("w", encoding = "utf-8") as archivo:
-        json.dump(datos, archivo, ensure_ascii = False, indent = 4)
+    with RUTA_POST.open("w", encoding="utf-8") as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=4)
 
 # Recupera los posts del JSON e informa si la carga fue completa.
 def cargar_posts():
@@ -70,11 +71,11 @@ def cargar_posts():
             datos = json.load(archivo)
     except (OSError, json.JSONDecodeError) as error:
         print(f"No fue posible leer el archivo 'posts.json': {error}")
-        return[],False
+        return [], False
 
     if not isinstance(datos, list):
         print("El archivo 'posts.json' debe contener una lista de posts.")
-        return[], False
+        return [], False
 
     # Recupera los registros válidos sin ocultar errores de otros registros.
     posts_cargados = []
@@ -97,7 +98,7 @@ def cargar_posts():
 
             posts_cargados.append(post)
         except (KeyError, TypeError, ValueError, AttributeError) as error:
-            hubo_error = True 
+            hubo_error = True
             print(f"No se pudo cargar el post {numero}: {error}")
 
     return posts_cargados, not hubo_error

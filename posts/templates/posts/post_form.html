@@ -1,0 +1,14 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>{{ titulo_pagina }}</h2>
+
+    <!-- El mismo formulario sirve para crear y editar; enctype envía la imagen. -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+    <a href="{% url 'posts:gestion_posts' %}">Cancelar</a>
+{% endblock %}
