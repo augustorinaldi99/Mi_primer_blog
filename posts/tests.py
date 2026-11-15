@@ -3,6 +3,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from PIL import Image
@@ -22,6 +23,9 @@ class PostViewsTests(TestCase):
     # Los registros se crean en una base de prueba separada de la base local.
     @classmethod
     def setUpTestData(cls):
+        cls.usuario = get_user_model().objects.create_user(
+            username="editor", password="clave-de-prueba-123"
+        )
         cls.publicado = Post.objects.create(
             titulo="Post público", contenido="Contenido visible",
             autor="Augusto", estado="publicado"
@@ -60,6 +64,7 @@ class PostViewsTests(TestCase):
 
     # Gestión muestra todos los estados, también los que no aparecen en Inicio.
     def test_gestion_muestra_todos_los_posts(self):
+        self.client.force_login(self.usuario)
         respuesta = self.client.get(reverse("posts:gestion_posts"))
 
         self.assertEqual(respuesta.status_code, 200)
@@ -69,6 +74,7 @@ class PostViewsTests(TestCase):
 
     # La creación conserva la imagen enviada y la muestra en el detalle.
     def test_crear_post_con_imagen(self):
+        self.client.force_login(self.usuario)
         with TemporaryDirectory() as carpeta, override_settings(MEDIA_ROOT=carpeta):
             respuesta = self.client.post(
                 reverse("posts:crear_post"),
@@ -89,6 +95,7 @@ class PostViewsTests(TestCase):
 
     # La edición modifica el registro existente y permite reemplazar su imagen.
     def test_editar_post_no_crea_otro_registro(self):
+        self.client.force_login(self.usuario)
         with TemporaryDirectory() as carpeta, override_settings(MEDIA_ROOT=carpeta):
             respuesta = self.client.post(
                 reverse("posts:editar_post", args=[self.borrador.id]),
@@ -109,6 +116,7 @@ class PostViewsTests(TestCase):
 
     # Consultar la confirmación no borra; enviar el formulario sí.
     def test_eliminar_post_requiere_confirmacion(self):
+        self.client.force_login(self.usuario)
         url = reverse("posts:eliminar_post", args=[self.borrador.id])
 
         self.assertEqual(self.client.get(url).status_code, 200)
@@ -117,3 +125,19 @@ class PostViewsTests(TestCase):
         respuesta = self.client.post(url)
         self.assertRedirects(respuesta, reverse("posts:gestion_posts"))
         self.assertFalse(Post.objects.filter(id=self.borrador.id).exists())
+
+    # Las herramientas privadas piden iniciar sesión y no modifican registros.
+    def test_gestion_y_cambios_requieren_sesion(self):
+        urls = [
+            reverse("posts:gestion_posts"),
+            reverse("posts:crear_post"),
+            reverse("posts:editar_post", args=[self.borrador.id]),
+            reverse("posts:eliminar_post", args=[self.borrador.id]),
+        ]
+        for url in urls:
+            with self.subTest(url=url):
+                respuesta = self.client.get(url)
+                self.assertEqual(respuesta.status_code, 302)
+                self.assertTrue(respuesta.url.startswith(reverse("accounts:login")))
+
+        self.assertTrue(Post.objects.filter(id=self.borrador.id).exists())

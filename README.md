@@ -1,22 +1,32 @@
 # Mi primer blog
 
-Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django hasta la preentrega 10.
+Este repositorio reúne el blog por consola de la preentrega 6 y su evolución web en Django hasta la preentrega 11.
 
 ## Versiones necesarias
 
 Este proyecto usa Django 6.1.2, compatible con Python 3.12, 3.13 y 3.14. Se probó localmente con Python 3.14.7. Las versiones de los paquetes externos se fijan en `requirements.txt`. Antes de crear el entorno virtual, comprobá tu Python con `python --version`.
 
-Para ejecutar el proyecto en otro equipo, creá un entorno virtual, instalá `requirements.txt` y aplicá las migraciones. La base de datos local no se incluye en Git; después podés cargar posts desde la página de Gestión o crear un superusuario para usar `/admin/`.
+Para ejecutar el proyecto en otro equipo, creá un entorno virtual, instalá `requirements.txt` y aplicá las migraciones. La base de datos local no se incluye en Git; después podés crear una cuenta en `/accounts/registro/` para usar Gestión o un superusuario para usar `/admin/`.
+
+## Preentrega 11: usuarios y perfiles
+
+La aplicación `accounts` usa la autenticación que Django ya incluye. Desde **Crear cuenta** (`/accounts/registro/`) se registra un usuario y se crea su `Perfil`; la sesión se inicia automáticamente. **Iniciar sesión** (`/accounts/login/`) permite entrar con una cuenta existente. **Cerrar sesión** envía un formulario POST desde el menú y vuelve al inicio. El menú muestra las opciones correspondientes a quien visita el sitio; **Administración** aparece solo para usuarios con permiso de personal (`is_staff`).
+
+**Mi perfil** (`/accounts/perfil/`) aparece en el menú al iniciar sesión. Allí se pueden consultar el nombre de usuario, el correo, la biografía y el avatar. **Editar perfil** (`/accounts/perfil/editar/`) cambia la biografía y sube una imagen. Para cuentas creadas antes de esta preentrega, el perfil se genera al visitar esa página. Los avatares se guardan en `media/avatares/` y, al igual que las imágenes de posts, no se suben a Git.
+
+Inicio, Acerca de y el detalle de publicaciones publicadas siguen siendo públicos. **Gestión** y crear, editar o eliminar posts requieren iniciar sesión: Django redirige al formulario de acceso y, al entrar, vuelve a la página solicitada. En esta preentrega, cualquier usuario autenticado puede gestionar todos los posts; la restricción por autor queda pendiente para la versión final.
+
+Para comprobar el flujo, abrí Inicio en una ventana de incógnito, registrá una cuenta, entrá en Mi perfil y agregá una biografía y un avatar. Cerrá sesión; intentá abrir `/gestion/` y comprobá que te pide iniciar sesión. Entrá nuevamente y verificá que Gestión y tu perfil conservan sus datos. Las pruebas automáticas se ejecutan con `python manage.py test` en una base temporal.
 
 ## Preentrega 10: gestión de posts e imágenes
 
 La página pública (`/`) muestra solo los posts publicados. Desde **Gestión** (`/gestion/`) se ven todos los estados y se puede crear, editar o eliminar una publicación. La eliminación pide confirmación: abrir esa página no borra el post; el borrado ocurre al enviar el formulario. El administrador de Django sigue disponible en `/admin/`.
 
-`posts/forms.py` define `PostForm` a partir del modelo `Post`. El mismo formulario se usa para crear y editar título, contenido, autor, estado e imagen. Los formularios envían la imagen con `enctype="multipart/form-data"`; las vistas la reciben mediante `request.FILES`. Esta preentrega no incluye autenticación ni permisos para Gestión.
+`posts/forms.py` define `PostForm` a partir del modelo `Post`. El mismo formulario se usa para crear y editar título, contenido, autor, estado e imagen. Los formularios envían la imagen con `enctype="multipart/form-data"`; las vistas la reciben mediante `request.FILES`. En la preentrega 10 todavía no había autenticación ni permisos para Gestión; se agregaron en la preentrega 11.
 
 Pillow, fijado en `requirements.txt`, permite validar los archivos del campo `ImageField`. Django guarda las imágenes subidas en `media/posts/` (`MEDIA_ROOT`) y registra su ruta relativa en la base de datos. `MEDIA_URL` y las rutas del proyecto permiten verlas con el servidor de desarrollo. La imagen se muestra en el detalle del post cuando existe; el listado público conserva solo el texto de adelanto. La carpeta `media/` y la base `db.sqlite3` son datos locales ignorados por Git: al clonar el proyecto, hay que crear las publicaciones y subir sus imágenes desde el formulario.
 
-Para probar el flujo: iniciá el servidor, entrá en `/gestion/`, creá un post publicado con una imagen y abrí su detalle desde Inicio. Después editá el post para cambiar la imagen, probá **Cancelar** en la confirmación de borrado y, con un post de prueba, confirmá la eliminación. En una instalación nueva, aplicá las migraciones antes de usar el formulario.
+Para probar el flujo: iniciá el servidor, entrá con una cuenta en `/accounts/login/`, abrí `/gestion/`, creá un post publicado con una imagen y abrí su detalle desde Inicio. Después editá el post para cambiar la imagen, probá **Cancelar** en la confirmación de borrado y, con un post de prueba, confirmá la eliminación. En una instalación nueva, aplicá las migraciones antes de usar el formulario.
 
 ## Preentrega 9: publicaciones en Django
 
@@ -53,6 +63,7 @@ El proyecto Django se llama `blog_project` y la aplicación principal es `posts`
 ├── manage.py
 ├── blog_project/     # configuración general de Django
 ├── posts/            # aplicación inicial del blog web
+├── accounts/         # registro, inicio de sesión y perfiles
 ├── requirements.txt
 ├── main.py           # versión por consola
 ├── posts.json        # datos de la versión por consola
@@ -107,7 +118,7 @@ Las pruebas del blog por consola usan archivos temporales para comprobar la bús
 
 ```shell
 python -m unittest discover -s tests
-python manage.py test posts
+python manage.py test
 ```
 
 ## Preentrega 6: blog por consola

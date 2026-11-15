@@ -3,7 +3,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: #243044;
-    background-color: #f3f6fa;
+    background-color: #dedddd;
 }
 
 /* Encabezado del sitio y enlaces del menú. */
@@ -17,17 +17,37 @@ header h1 {
     margin-top: 1rem;
 }
 
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 nav a {
-    display: inline-block;
-    margin-right: 12px;
     padding: 8px 12px;
-    color: white;
+    color: rgb(255, 255, 255);
     text-decoration: none;
     border: 1px solid white;
     border-radius: 6px;
 }
 
-nav a:hover {
+nav form {
+    margin: 0;
+}
+
+nav button {
+    padding: 8px 12px;
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 6px;
+    font: inherit;
+    cursor: pointer;
+}
+
+nav a:hover,
+nav button:hover {
     color: #23466b;
     background-color: white;
 }
@@ -68,4 +88,13 @@ main article a:hover {
 /* Justifica el texto completo y los adelantos de las publicaciones. */
 .contenido-post {
     text-align: justify;
+}
+
+/* Limita el tamaño del avatar sin deformar la imagen. */
+.avatar-perfil {
+    display: block;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
 }

@@ -23,6 +23,7 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("posts.urls")),
+    path("accounts/", include("accounts.urls")),
 ]
 
 # Durante el desarrollo, sirve las imágenes subidas desde MEDIA_ROOT.

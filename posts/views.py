@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import PostForm
 from .models import Post
@@ -26,12 +27,14 @@ def detalle_post(request, post_id):
 
 
 # Muestra todos los posts para gestionarlos, incluidos los borradores.
+@login_required
 def gestion_posts(request):
     posts = Post.objects.order_by("-fecha_creacion")
     return render(request, "posts/gestion_posts.html", {"posts": posts})
 
 
 # Valida los datos y la imagen recibidos; luego muestra el nuevo post en Gestión.
+@login_required
 def crear_post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -49,6 +52,7 @@ def crear_post(request):
 
 
 # Carga un post en el formulario y guarda los cambios sobre ese mismo registro.
+@login_required
 def editar_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
@@ -68,6 +72,7 @@ def editar_post(request, post_id):
 
 
 # Muestra la confirmación con GET y elimina el registro solo al recibir POST.
+@login_required
 def eliminar_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
