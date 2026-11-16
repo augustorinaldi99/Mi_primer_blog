@@ -1,15 +1,17 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}{{ post.titulo }} · Mi Primer Blog{% endblock %}
+
 {% block content %}
     {% if vista_previa %}
-        <p><strong>Vista previa privada: esta publicación no aparece en Inicio.</strong></p>
+        <p class="notice notice-info"><strong>Vista previa privada:</strong> esta publicación no aparece en Inicio.</p>
     {% endif %}
     <!-- El detalle muestra el contenido completo del post seleccionado. -->
-    <article>
-        <h2>{{ post.titulo }}</h2>
-        <p>Autor: {{ post.autor }}</p>
-        <p>Estado: {{ post.get_estado_display }}</p>
-        <p class="contenido-post">{{ post.contenido|linebreaksbr }}</p>
+    <article class="post-detail">
+        <p class="eyebrow">{{ post.get_estado_display }} <span aria-hidden="true">·</span> {{ post.fecha_creacion|date:"d M Y" }}</p>
+        <h1>{{ post.titulo }}</h1>
+        <p class="post-meta">Por {{ post.autor }}</p>
+        <div class="post-body contenido-post">{{ post.contenido|linebreaksbr }}</div>
         {% include 'posts/_tags.html' %}
         <!-- La imagen es opcional: solo se consulta su URL si existe. -->
         {% if post.imagen %}
@@ -18,8 +20,8 @@
     </article>
 
     {% if vista_previa %}
-        <a href="{% url 'posts:gestion_posts' %}">Volver a Gestión</a>
+        <a class="back-link" href="{% url 'posts:gestion_posts' %}">← Volver a Gestión</a>
     {% else %}
-        <a href="{% url 'posts:inicio' %}">Volver a publicaciones</a>
+        <a class="back-link" href="{% url 'posts:inicio' %}">← Volver a publicaciones</a>
     {% endif %}
 {% endblock %}

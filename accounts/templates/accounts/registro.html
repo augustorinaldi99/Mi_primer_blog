@@ -1,11 +1,17 @@
 {% extends 'posts/base.html' %}
 
-{% block content %}
-    <h2>Crear cuenta</h2>
+{% block title %}Crear cuenta · Mi Primer Blog{% endblock %}
 
-    <form method="post">
+{% block content %}
+    <div class="page-heading narrow">
+        <p class="eyebrow">Sumate al blog</p>
+        <h1>Crear cuenta</h1>
+    </div>
+
+    <form class="form-panel narrow" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Registrarme</button>
+        <p class="form-note">¿Ya tenés cuenta? <a href="{% url 'accounts:login' %}">Iniciá sesión</a>.</p>
     </form>
 {% endblock %}

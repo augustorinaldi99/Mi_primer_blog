@@ -1,27 +1,39 @@
 {% extends 'posts/base.html' %}
 
-{% block content %}
-    <h2>Bienvenidos a mi Blog</h2>
-    <p>Este es mi espacio para compartir mis posts con ustedes.</p>
+{% block title %}Publicaciones · Mi Primer Blog{% endblock %}
 
-    <form method="get" action="{% url 'posts:inicio' %}">
-        <label for="busqueda">Buscar por título o tag:</label>
-        <input id="busqueda" type="search" name="q" value="{{ busqueda }}">
-        <button type="submit">Buscar</button>
+{% block content %}
+    <section class="hero">
+        <p class="eyebrow">Historias para compartir</p>
+        <h1>Un espacio para hablar de superhéroes</h1>
+        <p>Películas, series y personajes contados desde mi mirada.</p>
+    </section>
+
+    <form class="search-form" method="get" action="{% url 'posts:inicio' %}" role="search">
+        <label for="busqueda">Buscar publicaciones</label>
+        <div class="search-controls">
+            <input id="busqueda" type="search" name="q" value="{{ busqueda }}" placeholder="Título o tag, por ejemplo MCU" autocomplete="off">
+            <button type="submit">Buscar</button>
+        </div>
     </form>
 
     {% if busqueda or tag_actual %}
-        <p><a href="{% url 'posts:inicio' %}">Ver todas las publicaciones</a></p>
+        <p class="back-link"><a href="{% url 'posts:inicio' %}">← Ver todas las publicaciones</a></p>
     {% endif %}
     <!-- El inicio muestra un adelanto de cada publicación disponible al público. -->
-    {% if tag_actual %}
-        <h2>Publicaciones con {{ tag_actual.nombre }}</h2>
-    {% else %}
-        <h2>Publicaciones</h2>
-    {% endif %}
+    <div class="section-heading">
+        {% if tag_actual %}
+            <h2>Publicaciones con {{ tag_actual.nombre }}</h2>
+        {% elif busqueda %}
+            <h2>Resultados para «{{ busqueda }}»</h2>
+        {% else %}
+            <h2>Publicaciones</h2>
+        {% endif %}
+    </div>
     {% for post in posts %}
-        <article>
-            <h3>
+        <article class="post-card">
+            <p class="post-meta">{{ post.fecha_creacion|date:"d M Y" }} <span aria-hidden="true">·</span> {{ post.autor }}</p>
+            <h3 class="post-card-title">
                 <a href="{% url 'posts:detalle_post' post.id %}">
                     {{ post.titulo }}
                 </a>
@@ -29,20 +41,22 @@
             {% include 'posts/_tags.html' %}
             <!-- El filtro acorta solo la vista previa; el texto guardado no cambia. -->
             <p class="contenido-post">{{ post.contenido|truncatewords:50 }}</p>
-            <a href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa</a>
-            <p>Autor: {{ post.autor }}</p>
+            <a class="read-more" href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa <span aria-hidden="true">→</span></a>
         </article>
     {% empty %}
-        {% if tag_actual %}
-            <p>No hay publicaciones publicadas con este tag.</p>
-        {% elif busqueda %}
-            <p>No se encontraron publicaciones para «{{ busqueda }}».</p>
-        {% else %}
-            <p>Todavía no hay publicaciones.</p>
-        {% endif %}
+        <div class="empty-state">
+            {% if tag_actual %}
+                <p>No hay publicaciones publicadas con este tag.</p>
+            {% elif busqueda %}
+                <p>No se encontraron publicaciones para «{{ busqueda }}».</p>
+                <p>Probá con otra palabra o con un tag.</p>
+            {% else %}
+                <p>Todavía no hay publicaciones.</p>
+            {% endif %}
+        </div>
     {% endfor %}
     {% if pagina.has_other_pages %}
-        <div class="paginacion" role="navigation" aria-label="Páginas de publicaciones">
+        <nav class="paginacion" aria-label="Páginas de publicaciones">
             {% if pagina.has_previous %}
                 <a href="?{% if busqueda %}q={{ busqueda|urlencode }}&amp;{% endif %}page={{ pagina.previous_page_number }}">Anterior</a>
             {% endif %}
@@ -60,6 +74,6 @@
             {% if pagina.has_next %}
                 <a href="?{% if busqueda %}q={{ busqueda|urlencode }}&amp;{% endif %}page={{ pagina.next_page_number }}">Siguiente</a>
             {% endif %}
-        </div>
+        </nav>
     {% endif %}
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -14,6 +15,7 @@ def registro(request):
             usuario = form.save()
             Perfil.objects.create(user=usuario)
             login(request, usuario)
+            messages.success(request, "Tu cuenta se creó correctamente.")
             return redirect("posts:inicio")
     else:
         form = RegistroForm()
@@ -37,6 +39,7 @@ def editar_perfil(request):
         form = PerfilForm(request.POST, request.FILES, instance=perfil_usuario)
         if form.is_valid():
             form.save()
+            messages.success(request, "Los cambios de tu perfil se guardaron.")
             return redirect("accounts:perfil")
     else:
         form = PerfilForm(instance=perfil_usuario)

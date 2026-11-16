@@ -4,38 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mi Primer Blog</title>
+    <title>{% block title %}Mi Primer Blog{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'posts/css/estilos.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Mi Primer Blog</h1>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="{% url 'posts:inicio' %}" aria-label="Mi Primer Blog, ir al inicio">
+                <span class="brand-mark" aria-hidden="true">M</span>
+                <span>Mi Primer Blog</span>
+            </a>
         <!-- Navegación compartida por todas las páginas que heredan esta base. -->
-        <nav>
-            <a href="{% url 'posts:inicio' %}">Inicio</a>
-            <a href="{% url 'posts:acerca' %}">Acerca de</a>
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a href="{% url 'posts:inicio' %}" {% if request.resolver_match.url_name == 'inicio' %}aria-current="page"{% endif %}>Inicio</a>
+                <a href="{% url 'posts:acerca' %}" {% if request.resolver_match.url_name == 'acerca' %}aria-current="page"{% endif %}>Acerca de</a>
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'accounts:perfil' %}">Mi perfil</a>
-                <a href="{% url 'posts:gestion_posts' %}">Gestión</a>
-                <a href="{% url 'posts:crear_post' %}">Crear post</a>
-                {% if user.is_staff %}
-                    <a href="{% url 'admin:index' %}">Administración</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:perfil' %}">Mi perfil</a>
+                    <a href="{% url 'posts:gestion_posts' %}">Gestión</a>
+                    <a class="nav-primary" href="{% url 'posts:crear_post' %}">Crear post</a>
+                    {% if user.is_staff %}
+                        <a href="{% url 'admin:index' %}">Administración</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
+                    <a class="nav-primary" href="{% url 'accounts:registro' %}">Crear cuenta</a>
                 {% endif %}
-                <form method="post" action="{% url 'accounts:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Cerrar sesión</button>
-                </form>
-            {% else %}
-                <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
-                <a href="{% url 'accounts:registro' %}">Crear cuenta</a>
-            {% endif %}
-        </nav>
+            </nav>
+        </div>
     </header>
 
     <!-- Cada plantilla hija coloca su contenido dentro de este bloque. -->
-    <main>
+    <main class="page-shell" id="contenido">
+        {% if messages %}
+            <div class="messages" aria-live="polite">
+                {% for message in messages %}
+                    <p class="notice notice-{{ message.tags|default:'info' }}" role="status">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>Mi Primer Blog · Películas, series y superhéroes</span>
+            <a href="{% url 'posts:acerca' %}">Acerca del blog</a>
+        </div>
+    </footer>
 </body>
 </html>

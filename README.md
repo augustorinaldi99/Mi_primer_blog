@@ -18,6 +18,7 @@ Las dependencias y sus versiones están en `requirements.txt`.
 - Cualquier visitante puede leer publicaciones con estado `publicado`, buscar por título o tag y abrir un tag para ver las publicaciones que lo comparten. La búsqueda ignora mayúsculas y tildes, pero distingue `ñ` de `n`. Los resultados se muestran de a tres por página.
 - Los usuarios pueden registrarse, iniciar y cerrar sesión, y editar su biografía y avatar.
 - Cada cuenta puede crear publicaciones y gestionar **solo las propias**: editar, eliminar y ver la vista previa privada de borradores y archivados. Las imágenes y los tags son opcionales.
+- El sitio confirma en pantalla cuando se crea, edita o elimina una publicación y cuando se guarda el perfil.
 - El nombre visible del autor se toma de la cuenta al crear el post. La relación `creado_por` identifica al dueño para controlar el acceso.
 - Los tags conservan el orden indicado al editarlos desde Gestión o Administración.
 - Las cuentas con permiso de personal pueden entrar a `/admin/` para administrar el sitio.

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -131,6 +132,7 @@ def crear_post(request):
             nuevo_post.autor = request.user.get_full_name() or request.user.get_username()
             nuevo_post.save()
             form.guardar_tags(nuevo_post)
+            messages.success(request, "La publicación se creó correctamente.")
             return redirect("posts:gestion_posts")
     else:
         form = PostForm()
@@ -160,6 +162,7 @@ def editar_post(request, post_id):
         if form.is_valid():
             post = form.save()
             form.guardar_tags(post)
+            messages.success(request, "Los cambios de la publicación se guardaron.")
             return redirect("posts:gestion_posts")
     else:
         form = PostForm(instance=post)
@@ -186,6 +189,7 @@ def eliminar_post(request, post_id):
 
     if request.method == "POST":
         post.delete()
+        messages.success(request, "La publicación se eliminó.")
         return redirect("posts:gestion_posts")
 
     return render(request, "posts/post_confirmacion_delete.html", {"post": post})

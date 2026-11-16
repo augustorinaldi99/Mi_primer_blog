@@ -1,7 +1,11 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Acceso denegado · Mi Primer Blog{% endblock %}
+
 {% block content %}
-    <h2>Acceso denegado</h2>
-    <p>No tenés autorización para {{ accion }} esta publicación.</p>
-    <a href="{% url 'posts:gestion_posts' %}">Volver a Gestión</a>
+    <div class="empty-state">
+        <h1>Acceso denegado</h1>
+        <p>No tenés autorización para {{ accion }} esta publicación.</p>
+        <a href="{% url 'posts:gestion_posts' %}">Volver a Gestión</a>
+    </div>
 {% endblock %}

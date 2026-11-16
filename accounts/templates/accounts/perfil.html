@@ -1,22 +1,28 @@
 {% extends "posts/base.html" %}
 
+{% block title %}Mi perfil · Mi Primer Blog{% endblock %}
+
 {% block content %}
-    <h2>Mi perfil</h2>
-    <p><strong>Usuario:</strong> {{ user.username }}</p>
-    {% if user.email %}
-        <p><strong>Correo:</strong> {{ user.email }}</p>
-    {% endif %}
-
-    {% if perfil.avatar %}
-        <img class="avatar-perfil" src="{{ perfil.avatar.url }}" alt="Avatar de {{ user.username }}">
-    {% endif %}
-
-    <h3>Biografía</h3>
-    {% if perfil.biografia %}
-        <p>{{ perfil.biografia|linebreaksbr }}</p>
-    {% else %}
-        <p>Todavía no agregaste una biografía.</p>
-    {% endif %}
-
-    <p><a href="{% url 'accounts:editar_perfil' %}">Editar perfil</a></p>
+    <div class="page-heading">
+        <p class="eyebrow">Tu cuenta</p>
+        <h1>Mi perfil</h1>
+    </div>
+    <div class="profile-card">
+        {% if perfil.avatar %}
+            <img class="avatar-perfil" src="{{ perfil.avatar.url }}" alt="Avatar de {{ user.username }}">
+        {% else %}
+            <div class="avatar-placeholder" aria-hidden="true">{{ user.username|first|upper }}</div>
+        {% endif %}
+        <div>
+            <h2>{{ user.username }}</h2>
+            {% if user.email %}<p class="post-meta">{{ user.email }}</p>{% endif %}
+            <h3>Biografía</h3>
+            {% if perfil.biografia %}
+                <p>{{ perfil.biografia|linebreaksbr }}</p>
+            {% else %}
+                <p>Todavía no agregaste una biografía.</p>
+            {% endif %}
+            <a class="button" href="{% url 'accounts:editar_perfil' %}">Editar perfil</a>
+        </div>
+    </div>
 {% endblock %}

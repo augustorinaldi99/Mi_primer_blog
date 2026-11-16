@@ -1,14 +1,20 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Eliminar publicación · Mi Primer Blog{% endblock %}
+
 {% block content %}
-    <h2>Eliminar publicación</h2>
-    <p>¿Estás seguro de que querés eliminar "{{ post.titulo }}"?</p>
+    <div class="form-panel confirmation-panel">
+        <p class="eyebrow">Confirmación</p>
+        <h1>Eliminar publicación</h1>
+        <p>¿Estás seguro de que querés eliminar «{{ post.titulo }}»? Esta acción no se puede deshacer.</p>
 
-    <!-- Abrir esta página no borra nada: la eliminación requiere enviar el POST. -->
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-    </form>
-
-    <a href="{% url 'posts:gestion_posts' %}">Cancelar</a>
+        <!-- Abrir esta página no borra nada: la eliminación requiere enviar el POST. -->
+        <div class="form-actions">
+            <form method="post">
+                {% csrf_token %}
+                <button class="button-danger" type="submit">Sí, eliminar</button>
+            </form>
+            <a href="{% url 'posts:gestion_posts' %}">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

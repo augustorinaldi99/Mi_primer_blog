@@ -1,14 +1,22 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}{{ titulo_pagina }} · Mi Primer Blog{% endblock %}
+
 {% block content %}
-    <h2>{{ titulo_pagina }}</h2>
+    <div class="page-heading">
+        <p class="eyebrow">Gestión de publicaciones</p>
+        <h1>{{ titulo_pagina }}</h1>
+        <p>Completá los datos y guardá la publicación cuando esté lista.</p>
+    </div>
 
     <!-- El mismo formulario sirve para crear y editar; enctype envía la imagen. -->
-    <form method="post" enctype="multipart/form-data">
+    <form class="form-panel" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if form.errors %}<p class="notice notice-error" role="alert">Revisá los campos señalados antes de guardar.</p>{% endif %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        <div class="form-actions">
+            <button type="submit">Guardar publicación</button>
+            <a href="{% url 'posts:gestion_posts' %}">Cancelar</a>
+        </div>
     </form>
-
-    <a href="{% url 'posts:gestion_posts' %}">Cancelar</a>
 {% endblock %}

@@ -1,11 +1,18 @@
 {% extends "posts/base.html" %}
 
+{% block title %}Editar perfil · Mi Primer Blog{% endblock %}
+
 {% block content %}
-    <h2>Editar perfil</h2>
-    <form method="post" enctype="multipart/form-data">
+    <div class="page-heading narrow">
+        <p class="eyebrow">Tu cuenta</p>
+        <h1>Editar perfil</h1>
+    </div>
+    <form class="form-panel narrow" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar cambios</button>
+        <div class="form-actions">
+            <button type="submit">Guardar cambios</button>
+            <a href="{% url 'accounts:perfil' %}">Cancelar</a>
+        </div>
     </form>
-    <p><a href="{% url 'accounts:perfil' %}">Volver a mi perfil</a></p>
 {% endblock %}

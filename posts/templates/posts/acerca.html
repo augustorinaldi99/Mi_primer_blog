@@ -1,8 +1,16 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Acerca de · Mi Primer Blog{% endblock %}
+
 {% block content %}
     <!-- Presentación del autor y propósito del blog. -->
-    <h2>Acerca de:</h2>
-    <p>Soy Augusto Rinaldi, autor del blog.</p>
-    <p>El propósito del sitio es compartir publicaciones sobre películas y series de superhéroes.</p>
+    <div class="page-heading">
+        <p class="eyebrow">Detrás del blog</p>
+        <h1>Acerca de</h1>
+    </div>
+    <div class="content-panel">
+        <p>Soy Augusto Rinaldi, autor del blog.</p>
+        <p>Este es un espacio para compartir publicaciones sobre películas y series de superhéroes.</p>
+        <a class="read-more" href="{% url 'posts:inicio' %}">Explorar publicaciones <span aria-hidden="true">→</span></a>
+    </div>
 {% endblock %}

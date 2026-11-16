@@ -1,11 +1,11 @@
 {% with etiquetas=post.etiquetas_ordenadas.all %}
     {% if etiquetas %}
-        <p>
+        <div class="tag-list" aria-label="Tags de la publicación">
             {% for etiqueta in etiquetas %}
-                <a href="{% url 'posts:posts_por_tag' etiqueta.tag.id %}">{{ etiqueta.tag.nombre }}</a>{% if not forloop.last %}, {% endif %}
+                <a class="tag" href="{% url 'posts:posts_por_tag' etiqueta.tag.id %}">{{ etiqueta.tag.nombre }}</a>
             {% endfor %}
-        </p>
+        </div>
     {% else %}
-        <p>Este post aún no contiene tags.</p>
+        <p class="no-tags">Este post aún no contiene tags.</p>
     {% endif %}
 {% endwith %}
