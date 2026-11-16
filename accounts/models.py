@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 
+
 # Agrega biografía y avatar al usuario de Django.
 class Perfil(models.Model):
     user = models.OneToOneField(

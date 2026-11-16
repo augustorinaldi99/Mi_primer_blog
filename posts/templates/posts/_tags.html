@@ -1,0 +1,11 @@
+{% with etiquetas=post.etiquetas_ordenadas.all %}
+    {% if etiquetas %}
+        <p>
+            {% for etiqueta in etiquetas %}
+                <a href="{% url 'posts:posts_por_tag' etiqueta.tag.id %}">{{ etiqueta.tag.nombre }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    {% else %}
+        <p>Este post aún no contiene tags.</p>
+    {% endif %}
+{% endwith %}

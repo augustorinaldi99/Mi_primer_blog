@@ -1,8 +1,10 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+
 from .forms import PerfilForm, RegistroForm
 from .models import Perfil
+
 
 # Crea el usuario y su perfil; después inicia su sesión.
 def registro(request):

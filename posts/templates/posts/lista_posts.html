@@ -4,8 +4,21 @@
     <h2>Bienvenidos a mi Blog</h2>
     <p>Este es mi espacio para compartir mis posts con ustedes.</p>
 
+    <form method="get" action="{% url 'posts:inicio' %}">
+        <label for="busqueda">Buscar por título o tag:</label>
+        <input id="busqueda" type="search" name="q" value="{{ busqueda }}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if busqueda or tag_actual %}
+        <p><a href="{% url 'posts:inicio' %}">Ver todas las publicaciones</a></p>
+    {% endif %}
     <!-- El inicio muestra un adelanto de cada publicación disponible al público. -->
-    <h2>Publicaciones</h2>
+    {% if tag_actual %}
+        <h2>Publicaciones con {{ tag_actual.nombre }}</h2>
+    {% else %}
+        <h2>Publicaciones</h2>
+    {% endif %}
     {% for post in posts %}
         <article>
             <h3>
@@ -13,12 +26,40 @@
                     {{ post.titulo }}
                 </a>
             </h3>
+            {% include 'posts/_tags.html' %}
             <!-- El filtro acorta solo la vista previa; el texto guardado no cambia. -->
             <p class="contenido-post">{{ post.contenido|truncatewords:50 }}</p>
             <a href="{% url 'posts:detalle_post' post.id %}">Leer publicación completa</a>
             <p>Autor: {{ post.autor }}</p>
         </article>
     {% empty %}
-        <p>Todavía no hay publicaciones.</p>
+        {% if tag_actual %}
+            <p>No hay publicaciones publicadas con este tag.</p>
+        {% elif busqueda %}
+            <p>No se encontraron publicaciones para «{{ busqueda }}».</p>
+        {% else %}
+            <p>Todavía no hay publicaciones.</p>
+        {% endif %}
     {% endfor %}
+    {% if pagina.has_other_pages %}
+        <div class="paginacion" role="navigation" aria-label="Páginas de publicaciones">
+            {% if pagina.has_previous %}
+                <a href="?{% if busqueda %}q={{ busqueda|urlencode }}&amp;{% endif %}page={{ pagina.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for numero in numeros_pagina %}
+                {% if numero == pagina.paginator.ELLIPSIS %}
+                    <span>{{ numero }}</span>
+                {% elif numero == pagina.number %}
+                    <strong aria-current="page">{{ numero }}</strong>
+                {% else %}
+                    <a href="?{% if busqueda %}q={{ busqueda|urlencode }}&amp;{% endif %}page={{ numero }}">{{ numero }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagina.has_next %}
+                <a href="?{% if busqueda %}q={{ busqueda|urlencode }}&amp;{% endif %}page={{ pagina.next_page_number }}">Siguiente</a>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock %}

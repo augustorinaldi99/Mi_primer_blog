@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 app_name = "posts"
@@ -12,4 +13,6 @@ urlpatterns = [
     path("posts/crear/", views.crear_post, name="crear_post"),
     path("posts/<int:post_id>/editar/", views.editar_post, name="editar_post"),
     path("posts/<int:post_id>/eliminar/", views.eliminar_post, name="eliminar_post"),
+    path("tags/<int:tag_id>/", views.posts_por_tag, name="posts_por_tag"),
+    path("posts/<int:post_id>/vista-previa/", views.vista_previa_post, name="vista_previa_post"),
 ]

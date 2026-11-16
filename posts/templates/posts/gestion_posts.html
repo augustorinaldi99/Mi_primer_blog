@@ -9,6 +9,11 @@
         {% for post in posts %}
             <li>
                 {{ post.titulo }} — {{ post.get_estado_display }}
+                {% if post.estado == "publicado" %}
+                    — <a href="{% url 'posts:detalle_post' post.id %}">Ver</a>
+                {% else %}
+                    — <a href="{% url 'posts:vista_previa_post' post.id %}">Vista previa</a>
+                {% endif %}
                 — <a href="{% url 'posts:editar_post' post.id %}">Editar</a>
                 — <a href="{% url 'posts:eliminar_post' post.id %}">Eliminar</a>
             </li>

@@ -1,17 +1,25 @@
 {% extends 'posts/base.html' %}
 
 {% block content %}
+    {% if vista_previa %}
+        <p><strong>Vista previa privada: esta publicación no aparece en Inicio.</strong></p>
+    {% endif %}
     <!-- El detalle muestra el contenido completo del post seleccionado. -->
     <article>
         <h2>{{ post.titulo }}</h2>
         <p>Autor: {{ post.autor }}</p>
         <p>Estado: {{ post.get_estado_display }}</p>
         <p class="contenido-post">{{ post.contenido|linebreaksbr }}</p>
+        {% include 'posts/_tags.html' %}
         <!-- La imagen es opcional: solo se consulta su URL si existe. -->
         {% if post.imagen %}
             <img class="imagen-post" src="{{ post.imagen.url }}" alt="Imagen de {{ post.titulo }}">
         {% endif %}
     </article>
 
-    <a href="{% url 'posts:inicio' %}">Volver a publicaciones</a>
+    {% if vista_previa %}
+        <a href="{% url 'posts:gestion_posts' %}">Volver a Gestión</a>
+    {% else %}
+        <a href="{% url 'posts:inicio' %}">Volver a publicaciones</a>
+    {% endif %}
 {% endblock %}
