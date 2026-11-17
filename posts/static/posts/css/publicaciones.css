@@ -1,0 +1,230 @@
+/* Inicio: introducción, búsqueda y adelantos de publicaciones. */
+.hero {
+    padding: clamp(24px, 3.5vw, 42px);
+    margin-bottom: 26px;
+    border-radius: 18px;
+    background: var(--hero-background);
+    border: 1.5px solid var(--hero-line);
+    box-shadow: 0 10px 26px rgb(23 43 58 / 11%);
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 3vw, 2.65rem);
+    margin: 0 0 14px;
+}
+
+.hero p:last-child {
+    max-width: 610px;
+    margin: 0;
+    color: #425c68;
+    font-size: 1.1rem;
+}
+
+.eyebrow {
+    margin-bottom: 12px;
+    color: var(--accent-dark);
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.search-form {
+    padding: 22px;
+    margin-bottom: 30px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: 0 8px 24px rgb(23 43 58 / 9%);
+}
+
+.search-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.search-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.search-controls input {
+    flex: 1;
+    min-width: 0;
+}
+
+.section-heading {
+    margin: 30px 0 18px;
+}
+
+.section-heading h2 {
+    margin: 0;
+}
+
+.post-card {
+    padding: clamp(22px, 4vw, 34px);
+    margin-bottom: 16px;
+}
+
+.post-card-title {
+    margin: 8px 0 16px;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.post-card-title a, .post-card-title a:visited {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.post-card-title a:hover {
+    color: var(--accent-dark);
+}
+
+.post-meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.post-meta span[aria-hidden] {
+    margin-inline: 5px;
+}
+
+.post-card .contenido-post {
+    margin: 18px 0;
+    color: #364a57;
+}
+
+.read-more {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.read-more span {
+    margin-left: 4px;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.tag, .tag:visited {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid #a8c4c7;
+    border-radius: 99px;
+    background: #e1eeef;
+    color: #31596a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tag:hover {
+    border-color: #9fc3c5;
+    background: #dfefed;
+    color: #204453;
+}
+
+.no-tags {
+    margin: 8px 0;
+    color: var(--muted);
+    font-size: 0.87rem;
+}
+
+.empty-state {
+    padding: 28px;
+    color: var(--muted);
+}
+
+.empty-state p:last-child {
+    margin-bottom: 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 6px 0 20px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.paginacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.paginacion a, .paginacion strong, .paginacion span {
+    display: inline-grid;
+    place-items: center;
+    min-width: 42px;
+    min-height: 40px;
+    padding: 6px 12px;
+    border: 1px solid #8eabb3;
+    border-radius: 8px;
+    background: #d2e3e6;
+    color: #1b3b4a;
+    text-decoration: none;
+}
+
+.paginacion strong {
+    border-color: #18364b;
+    background: #18364b;
+    color: #fff;
+}
+
+.paginacion a:hover {
+    border-color: #668e99;
+    background: #bed6da;
+}
+
+.paginacion span {
+    border-color: transparent;
+    background: transparent;
+}
+
+/* Lectura completa de una publicación. */
+.post-detail {
+    padding: clamp(24px, 5vw, 52px);
+    border-radius: var(--radius);
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    box-shadow: 0 10px 26px rgb(23 43 58 / 11%);
+}
+
+.post-detail h1 {
+    margin: 0 0 12px;
+}
+
+.post-body {
+    margin: 30px 0;
+    font-size: 1.06rem;
+    line-height: 1.85;
+}
+
+.contenido-post {
+    text-align: justify;
+    overflow-wrap: anywhere;
+}
+
+.imagen-post {
+    display: block;
+    max-width: 100%;
+    max-height: 650px;
+    height: auto;
+    margin: 30px auto 0;
+    border-radius: 10px;
+    object-fit: contain;
+}

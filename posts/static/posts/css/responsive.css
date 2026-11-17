@@ -1,0 +1,46 @@
+/* Ajustes para pantallas angostas y preferencias de movimiento. */
+@media (max-width: 760px) {
+    .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .site-nav {
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .management-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .page-heading.with-action {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 520px) {
+    .header-inner, .footer-inner, .page-shell {
+        width: min(100% - 28px, 1040px);
+    }
+    .page-shell {
+        padding-block: 24px 48px;
+    }
+    .hero {
+        padding: 28px;
+    }
+    .search-controls {
+        flex-direction: column;
+    }
+    .profile-card {
+        flex-direction: column;
+    }
+    .contenido-post {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

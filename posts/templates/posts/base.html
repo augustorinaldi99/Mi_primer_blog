@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Mi Primer Blog{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'posts/css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'posts/css/publicaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'posts/css/paneles.css' %}">
+    <link rel="stylesheet" href="{% static 'posts/css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'posts/css/responsive.css' %}">
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="{% url 'posts:inicio' %}" aria-label="Mi Primer Blog, ir al inicio">
-                <span class="brand-mark" aria-hidden="true">M</span>
-                <span>Mi Primer Blog</span>
+                Mi Primer Blog
             </a>
         <!-- Navegación compartida por todas las páginas que heredan esta base. -->
             <nav class="site-nav" aria-label="Navegación principal">

@@ -1,0 +1,103 @@
+/* Gestión de publicaciones y perfil de usuario. */
+.management-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.management-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+}
+
+.management-item h2 {
+    margin: 0 0 7px;
+    font-size: 1.18rem;
+}
+
+.management-item .post-meta {
+    margin: 0;
+}
+
+.item-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.item-actions a {
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.item-actions a:hover {
+    text-decoration: underline;
+}
+
+.item-actions .danger-link {
+    color: #a03026;
+}
+
+.status {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: #e9eff2;
+    color: #37516a;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.status-publicado {
+    background: #e2f2e8;
+    color: #246543;
+}
+
+.status-archivado {
+    background: #edf0f4;
+    color: #526070;
+}
+
+.profile-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    padding: clamp(22px, 4vw, 36px);
+}
+
+.profile-card h2 {
+    margin: 0 0 8px;
+}
+
+.profile-card h3 {
+    margin: 22px 0 8px;
+}
+
+.profile-card .button {
+    margin-top: 12px;
+}
+
+.avatar-perfil, .avatar-placeholder {
+    flex-shrink: 0;
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+}
+
+.avatar-perfil {
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    display: grid;
+    place-items: center;
+    background: #dceae8;
+    color: #31596a;
+    font-size: 3rem;
+    font-weight: 750;
+}

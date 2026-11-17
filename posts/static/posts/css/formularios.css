@@ -1,0 +1,81 @@
+/* Campos, errores y confirmaciones de los formularios. */
+.form-panel {
+    padding: clamp(22px, 4vw, 36px);
+}
+
+.form-panel > p {
+    margin-bottom: 20px;
+}
+
+.form-panel label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.form-panel input:not([type="checkbox"]):not([type="hidden"]), .form-panel select, .form-panel textarea, .search-controls input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #9db4bc;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+}
+
+.form-panel input[type="file"] {
+    max-width: 100%;
+}
+
+.form-panel textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-panel .helptext, .form-panel .helptext ul {
+    display: block;
+    margin: 5px 0 0;
+    padding-left: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.form-panel .helptext li {
+    margin-left: 18px;
+}
+
+.errorlist {
+    margin: 5px 0 8px;
+    padding-left: 20px;
+    color: #a03026;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 26px;
+}
+
+.form-actions a {
+    font-weight: 650;
+}
+
+.form-note {
+    margin: 20px 0 0 !important;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.confirmation-panel {
+    max-width: 700px;
+}
+
+button.button-danger {
+    border-color: #a03026;
+    background: #a03026;
+}
+
+button.button-danger:hover {
+    background: #81251d;
+}
