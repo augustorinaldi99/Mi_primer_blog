@@ -5,3 +5,10 @@ db.sqlite3
 media/
 venv/
 .env
+
+# Environment variants; keep the example file tracked
+.env.*
+!.env.example
+
+# SQLite WAL and journal sidecar files
+*.sqlite3-*
